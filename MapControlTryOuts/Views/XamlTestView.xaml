@@ -4,7 +4,6 @@
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:local="clr-namespace:MapControlTryOuts.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
@@ -95,8 +94,7 @@
                         <!--Search textbox -->
                         <Grid>
                             <TextBlock Margin="40 0 0 0" VerticalAlignment="Center" Foreground="#594f7f"
-                                       IsHitTestVisible="False" Panel.ZIndex="1" Text="Search..."
-                                       Visibility="{Binding ElementName=txtSearch, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
+                                       IsHitTestVisible="False" Panel.ZIndex="1" Text="Search..."/>
 
                             <TextBox x:Name="txtSearch" Style="{StaticResource searchTextBox}"/>
 
