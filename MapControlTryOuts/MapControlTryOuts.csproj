@@ -1,0 +1,62 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="AbstractsAndInterfaces\**" />
+    <Compile Remove="Contexts\**" />
+    <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="AbstractsAndInterfaces\**" />
+    <EmbeddedResource Remove="Contexts\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="AbstractsAndInterfaces\**" />
+    <None Remove="Contexts\**" />
+    <None Remove="Models\**" />
+    <Page Remove="AbstractsAndInterfaces\**" />
+    <Page Remove="Contexts\**" />
+    <Page Remove="Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\MapView.xaml — kopia.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Images\Leonardo_self.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Views\MapView — kopia.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+    <PackageReference Include="ShowMeTheXAML.AvalonEdit" Version="2.0.0" />
+    <PackageReference Include="ShowMeTheXAML.MSBuild" Version="2.0.0" />
+    <PackageReference Include="XAML.MapControl" Version="7.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoreClassesLib\CoreClassesLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Leonardo_self.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,185 @@
+﻿<Window x:Class="MapControlTryOuts.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="clr-namespace:CoreClassesLib.Models;assembly=CoreClassesLib"
+        xmlns:map="clr-namespace:MapControl;assembly=MapControl.WPF"
+        xmlns:local="clr-namespace:MapControlTryOuts"
+        xmlns:views="clr-namespace:MapControlTryOuts.Views"
+        xmlns:viewModels="clr-namespace:MapControlTryOuts.ViewModels"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:smtx="clr-namespace:ShowMeTheXAML.AvalonEdit;assembly=ShowMeTheXAML.AvalonEdit"
+        mc:Ignorable="d" KeyUp="Window_KeyUp"
+        Title="MainWindow" Height="450" Width="800" Background="White">
+
+    <Window.Resources>
+
+
+    </Window.Resources>
+    <Grid Background="{StaticResource BackgroundColor}">
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type viewModels:MapViewModel}">
+                <views:MapView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:WarehouseStockListViewModel}">
+                <views:WarehouseStockListView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:XamlTestViewModel}">
+                <views:XamlTestView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:AddResourceViewModel}">
+                <views:AddResourceView/>
+            </DataTemplate>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="15 0 0 0"
+                   Style="{DynamicResource MaterialDesignCaptionTextBlock}"
+                   Text="System zarządzania polem walki - RYŚ"
+                   HorizontalAlignment="Left"/>
+        <Button Style="{StaticResource MaterialDesignIconButton}" Grid.Row="0" Grid.Column="1" 
+                HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Focusable="False" Cursor="Hand"
+                Command="{Binding CloseCommand}">
+            <Button.Content>
+                <materialDesign:PackIcon Kind="Close"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         Width="20"
+                                         Height="20"/>
+            </Button.Content>
+        </Button>
+
+        <StackPanel Grid.Column="0" Grid.Row="1">
+            <Button Height="50" Width="50" Margin="5 15 5 10" Style="{StaticResource MaterialDesignIconButton}" Focusable="False"
+                    HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+                    Background="Transparent" BorderThickness="0"
+                    Command="{Binding NavigateToMapCommand}"
+                    ToolTip="Mapa operacyjna">
+                <Button.Content>
+                    <Border CornerRadius="15" >
+                        <materialDesign:PackIcon Kind="Map"
+                                             HorizontalAlignment="Center"
+                                             VerticalAlignment="Center"/>
+                        
+                    </Border>
+                </Button.Content>
+            </Button>
+
+            <Button Height="50" Width="50" Margin="5 15 5 10" Style="{StaticResource MaterialDesignIconButton}" Focusable="False"
+                    HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+                    Background="Transparent" BorderThickness="0"
+                    Command="{Binding NavigateToWarehouseCommand}"
+                    ToolTip="Logistyka">
+                <Button.Content>
+                    <Border CornerRadius="15" >
+                        <materialDesign:PackIcon Kind="BoxLocation"
+                                             HorizontalAlignment="Center"
+                                             VerticalAlignment="Center"/>
+
+                    </Border>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="ExpandButton"
+                    Height="50" Width="50" Margin="5 15 5 10" Style="{StaticResource MaterialDesignIconButton}" Focusable="False"
+                    HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+                    Background="Transparent" BorderThickness="0"
+                    Cursor="Hand" ToolTip="Rozwiń"
+                    Click="ExpandButton_Click">
+                <Button.Content>
+                    <Border CornerRadius="15" >
+                        <materialDesign:PackIcon Kind="ExpandAll"
+                                             HorizontalAlignment="Center"
+                                             VerticalAlignment="Center"/>
+
+                    </Border>
+                </Button.Content>
+            </Button>
+
+        </StackPanel>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Border>
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="30"/>
+                </Border.Effect>
+            <ContentControl  Content="{Binding CurrentViewModel}" Margin="10">
+
+            </ContentControl>
+            </Border>
+        </Grid>
+
+        <!--<TabControl Grid.Row="0" Grid.Column="1">
+            <TabItem Header="Mapa" Name="MapViewTab">
+                <views:MapView x:Name="MapViewControl" Loaded="MapViewControl_Loaded" Margin="4 4 4 4"/>
+            </TabItem>
+
+            <TabItem Header="Xaml testy" Name="XamlTestViewTab">
+                <views:XamlTestView x:Name="XamlTestViewControl" Margin="4 4 4 4"/>
+            </TabItem>
+
+            <TabItem Header="Stany magazynowe" Name="WarehouseStockListViewTab">
+                <views:WarehouseStockListView x:Name="WarehouseStockListViewControl" Margin="4 4 4 4"/>
+            </TabItem>
+        </TabControl>-->
+
+        <!--Popup navigation area-->
+
+        <Popup PlacementTarget="{Binding ElementName=ExpandButton}" IsOpen="{Binding IsNavigationPopupOpen}" Placement="Relative"
+               VerticalOffset="20" HorizontalOffset="20"
+               AllowsTransparency="True" Height="300" PopupAnimation="Scroll"
+               StaysOpen="False">
+            <Grid VerticalAlignment="Stretch" Width="80" MaxWidth="80" Background="Transparent" HorizontalAlignment="Left" Margin="20">
+                <Border CornerRadius="15" Background="{StaticResource BackgroundColor}" Opacity="0.7">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="20"/>
+                    </Border.Effect>
+                </Border>
+                <StackPanel>
+                    <Button Height="50" Width="50" Margin="5 15 5 10" Style="{StaticResource MaterialDesignIconButton}" Focusable="False"
+                    HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+                    Background="Transparent" BorderThickness="0"
+                    ToolTip="Dodaj zasób"
+                            Command="{Binding NavigateToAddResourceCommand}">
+                        <Button.Content>
+                            <Border CornerRadius="15" >
+                                <materialDesign:PackIcon Kind="ViewGridAdd"
+                                             HorizontalAlignment="Center"
+                                             VerticalAlignment="Center"/>
+
+                            </Border>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Popup>
+
+
+    </Grid>
+
+
+        <!--<smtx:XamlDisplay Margin="0,0,16,16" UniqueKey="tabs_13">
+            <TabControl TabStripPlacement="Left"
+                        Style="{StaticResource MaterialDesignNavigationRailTabControl}">
+                <TabItem Header="Mapa" Name="MapViewTab">
+                    <views:MapView x:Name="MapViewControl" Loaded="MapViewControl_Loaded" />
+                </TabItem>
+                <TabItem Header="Xaml Testy" Name="XamlTestViewTab">
+                    <views:XamlTestView x:Name="XamlTestViewControl"/>
+                </TabItem>
+                <TabItem Header="Stany magazynowe" Name="WarehouseStockListViewTab">
+                    <views:WarehouseStockListView x:Name="WarehouseStockListViewControl"/>
+                </TabItem>
+            </TabControl>
+        </smtx:XamlDisplay>-->
+
+
+</Window>
